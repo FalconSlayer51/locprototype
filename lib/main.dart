@@ -1,3 +1,5 @@
+
+
 // ignore_for_file: depend_on_referenced_packages
 
 import 'package:firebase_auth/firebase_auth.dart';
@@ -5,12 +7,15 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:google_maps_flutter_android/google_maps_flutter_android.dart';
 import 'package:google_maps_flutter_platform_interface/google_maps_flutter_platform_interface.dart';
 import 'package:locprototype/auth/bloc/auth_bloc.dart';
 import 'package:locprototype/firebase_options.dart';
-import 'package:locprototype/home_screen.dart';
-import 'package:locprototype/landing_screen.dart';
+import 'package:locprototype/internet/bloc/internet_service_bloc.dart';
+import 'package:locprototype/location_bloc/bloc/location_bloc.dart';
+import 'package:locprototype/screens/home_screen.dart';
+import 'package:locprototype/screens/landing_screen.dart';
 
 late final Position position;
 void main() async {
@@ -30,6 +35,12 @@ void main() async {
       providers: [
         BlocProvider(
           create: (context) => AuthBloc(),
+        ),
+        BlocProvider(
+          create: (context) => InternetServiceBloc(),
+        ),
+        BlocProvider(
+          create: (context) => LocationBloc(),
         )
       ],
       child: const MyApp(),
@@ -48,6 +59,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
+        textTheme: GoogleFonts.poppinsTextTheme(),
       ),
       home: FirebaseAuth.instance.currentUser != null
           ? MyHomePage(

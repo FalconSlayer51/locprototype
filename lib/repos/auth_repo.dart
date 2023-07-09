@@ -47,7 +47,6 @@ class AuthRepository {
       ScaffoldMessenger.of(context).showMaterialBanner(
         MaterialBanner(
           content: Text(e.toString()),
-          backgroundColor: Colors.blue,
           actions: [
             TextButton(
               onPressed: () {
